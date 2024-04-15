@@ -326,88 +326,105 @@ Make eight suitable plots of `salary_exp_post_grad` versus each one of the rest 
 # Your plotting function(s).
 
 # YOUR CODE HERE
+
+createPlot <- function(col) {
+  plot <- ggplot(salary_df, aes(x = salary_exp_post_grad, fill = .data[[col]])) +
+    geom_bar(stat = "count", position = "fill") +  
+    facet_wrap(~year) +
+    labs(y="Proportion") +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  print(plot)
+}
+
 ```
 
 **In one or two sentences BY PLOT**, comment on your graphical findings by plot:
 
 **ANSWER (`mds_self_rated_enjoy` versus `salary_exp_post_grad`):**
 
-*Type your answer here, replacing this text.*
+Most respondents self rated their enjoyment of MDS as either 3 or 4 and at a graphical level this does not appear to be associated with salary expectations post income or year. However, I note that in 2020, people who expected 100k-200k unanimously rated enjoyment as level 3.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, fig.width=9, fig.height=5}
 # You plot goes here.
 
 # YOUR CODE HERE
+createPlot("mds_self_rated_enjoy")
 ```
 
 **ANSWER (`salary_pre_mds` versus `salary_exp_post_grad`):**
 
-*Type your answer here, replacing this text.*
+There appears to be a relationship between salary expectations post grad and pre mds, with lower salaries in before MDS associated with lower salaries expectations after graduation, and higher salaries before MDS associated with higher salaries after graduation. This is consistent across years.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, fig.width=9, fig.height=5}
 # You plot goes here.
 
-# YOUR CODE HERE
+createPlot("salary_pre_mds")
 ```
 
 **ANSWER (`work_exp` versus `salary_exp_post_grad`):**
 
-*Type your answer here, replacing this text.*
+There does not appear to be a clear graphical association between the number of years of work experience and salary expectations post-graduation.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, fig.width=9, fig.height=5}
 # You plot goes here.
 
 # YOUR CODE HERE
+createPlot("work_exp")
 ```
 
 **ANSWER (`ds_skill_confidence` versus `salary_exp_post_grad`):**
 
-*Type your answer here, replacing this text.*
+There does not appear to be a clear graphical association between skill confidence and salary expectations post-graduation.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, fig.width=9, fig.height=5}
 # You plot goes here.
 
 # YOUR CODE HERE
+createPlot("ds_skill_confidence")
 ```
 
 **ANSWER (`does_optional_qs` versus `salary_exp_post_grad`):**
 
-*Type your answer here, replacing this text.*
+There does not appear to be a clear graphical association between doing the optional questions and salary expectations post-graduation.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, fig.width=9, fig.height=5}
 # You plot goes here.
 
 # YOUR CODE HERE
+createPlot("does_optional_qs")
 ```
 
 **ANSWER (`currently_job_searching` versus `salary_exp_post_grad`):**
 
-*Type your answer here, replacing this text.*
+There does not appear to be a clear graphical association between currently searching for a job and salary expectations post-graduation. However, in 2019, all of the respondent with salary expectations less than 60k were currently searching for work.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, fig.width=9, fig.height=5}
 # You plot goes here.
 
 # YOUR CODE HERE
+createPlot("currently_job_searching")
 ```
 
 **ANSWER (`baseline_happiness` versus `salary_exp_post_grad`):**
 
-*Type your answer here, replacing this text.*
+There does not appear to be a clear graphical association between currently searching for a job and salary expectations post-graduation. However, graduates with the highest salary expectations tend to have a higher proportion of students with a baseline happiness of 4.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, fig.width=9, fig.height=5}
 # You plot goes here.
 
 # YOUR CODE HERE
+createPlot("baseline_happiness")
 ```
 
 **ANSWER (`freq_attend_mds_career_events` versus `salary_exp_post_grad`):**
 
-*Type your answer here, replacing this text.*
+There does not appear to be a clear graphical association between frequently attending career events for a job and salary expectations post-graduation.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, fig.width=9, fig.height=5}
 # You plot goes here.
 
 # YOUR CODE HERE
+createPlot("freq_attend_mds_career_events")
 ```
 
 ## Q2.2. Choosing a Regression Model
@@ -418,7 +435,7 @@ Given the form in the response `salary_exp_post_grad`, what is the most suitable
 
 **ANSWER:**
 
-*Type your answer here, replacing this text.*
+*Since we have an ordinal response with increasing salary expectations, we could consider using an ordinal logistic regression model. We could use the R function*
 
 ## Q2.3. Naive Data Modelling
 
