@@ -605,9 +605,11 @@ Based on these comparisons, which model would you finally choose? **Answer in on
 ```{r tags=c()}
 # YOUR CODE HERE
 
-anova(initial_model, full_model)
-anova(initial_model, reduced_model)
-anova(reduced_model, full_model)
+first <- as.data.frame(anova(initial_model, full_model))
+second <- anova(initial_model, reduced_model)
+third <- anova(reduced_model, full_model)
+first
+
 ```
 
 ## Q2.9. Inferential Conclusions
