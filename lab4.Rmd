@@ -21,7 +21,7 @@ In this last lab, you will practice investigating causality through an observati
 
 rubric={mechanics:5}
 
--   Paste the URL to your GitHub repo here: **INSERT YOUR GITHUB REPO URL HERE**
+-   Paste the URL to your GitHub repo here: <https://github.com/UBC-MDS/554-rory-kiersten>
 -   Once you finish the assignment, you must **knit** this `R` markdown to create a `.pdf` file and push everything to your GitHub repo using `git push`. You are responsible for ensuring all the figures, texts, and equations in the `.pdf` file are appropriately rendered.
 -   **You must submit the rendered `.pdf` file to Gradescope.**
 
@@ -82,7 +82,13 @@ In your own words, explain what is meant by odds, odds ratio, and log-odds ratio
 
 **ANSWER:**
 
-*Type your answer here, replacing this text.*
+Odds: The ratio of the probability of an event occurring to the probability of the event not occurring. Eg. If you have a biased coin where 25% of the coin flips land as heads, the odds of heads:tails would be 1:3.
+
+Odds ratio: The ratio of the probability of an event occurring to the probability of the event not occurring, presented as a single number. Eg. If you have a biased coin where 25% of the coin flips land as heads, the odds ratio would be 1/3 = 0.3333.
+
+Log-odds ratio: The natural logarithm of the odds ratio. Eg. If you have a biased coin where 25% of the coin flips land as heads, the log-odds ratio would be ln(1/3)\* = -1.098612.
+
+\*In R the log() function is the natural logarithm.
 
 ## Q1.2. Creating a Research Question
 
@@ -96,7 +102,13 @@ Create a **single** research question you would be interested in answering via a
 
 **ANSWER:**
 
-*Type your answer here, replacing this text.*
+**Research question**: Do people who drink coffee have higher test scores than those who don't?
+
+**Cross-sectional (Contemporaneous)**: I take a random sample of 300 people from the population (Canadians above 18 years of age). From this population sample I would record whether they drank a coffee that day and their performance on a test.
+
+**Case-control (Retrospective)**: I would use a random sample of people from the population (Canadians above 18 years of age) who write a test. From this sample I would identify 150 who performed well and 150 subjects who performed poorly. Then I would ask them whether they drank coffee that day or not.
+
+**Cohort (Prospective)**: I would use a random sample of people from the population (Canadians above 18 years of age) who perform poorly on a test. I would then ask half of the subjects to drink coffee and half to refrain for a period of 1 week. I would then retest them and see how many from each group performed well on the test.
 
 ## Q1.3. Design an Observational Study for Your Research Question
 
@@ -106,7 +118,7 @@ For your described research question above, which study design (out of the above
 
 **ANSWER:**
 
-*Type your answer here, replacing this text.*
+*For this study I would use a cross-sectional design. It is the most realistic since there are many factors that can impact test scores. The use of this study design would most clearly identify whether there is an association between coffee consumption and test performance. The other two study designs are more convoluted and would not improve assessment of the question being asked.*
 
 \newpage
 
