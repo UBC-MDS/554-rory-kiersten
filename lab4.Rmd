@@ -477,9 +477,9 @@ library(MASS)
 
 initial_model <- MASS::polr(salary_exp_post_grad ~ mds_self_rated_enjoy, data=salary_df, Hess = TRUE)
 
-tidy_initial_model <- tidy(model) 
+tidy_initial_model <- tidy(initial_model) 
 
-tidy_initial_model <- tidy |>
+tidy_initial_model <- tidy_initial_model |>
   mutate(p_raw = 2*pnorm(abs(statistic), lower.tail = F)) |>
   mutate(p_adj = p.adjust((p_raw), method="fdr"))
 
@@ -514,7 +514,7 @@ full_model <- MASS::polr(salary_exp_post_grad ~ mds_self_rated_enjoy + salary_pr
 
 tidy_full_model <- tidy(full_model) 
 
-tidy_full_model <- tidy |>
+tidy_full_model <- tidy_full_model |>
   mutate(p_raw = 2*pnorm(abs(statistic), lower.tail = F)) |>
   mutate(p_adj = p.adjust((p_raw), method="fdr"))
 
@@ -583,7 +583,7 @@ reduced_model <- MASS::polr(salary_exp_post_grad ~ mds_self_rated_enjoy + salary
 
 tidy_reduced_model <- tidy(full_model) 
 
-tidy_reduced_model <- tidy |>
+tidy_reduced_model <- tidy_reduced_model |>
   mutate(p_raw = 2*pnorm(abs(statistic), lower.tail = F)) |>
   mutate(p_adj = p.adjust((p_raw), method="fdr"))
 
@@ -600,15 +600,20 @@ Based on these comparisons, which model would you finally choose? **Answer in on
 
 **ANSWER:**
 
-*Type your answer here, replacing this text.*
+After the three goodness of fit tests, it was found that at a significance level of 0.05, the reduced model fits the data better than both the initial and full models. Therefore, I would choose the reduced model.
 
 ```{r tags=c()}
 # YOUR CODE HERE
 
 first <- as.data.frame(anova(initial_model, full_model))
-second <- anova(initial_model, reduced_model)
-third <- anova(reduced_model, full_model)
-first
+second <- as.data.frame(anova(initial_model, reduced_model))
+third <- as.data.frame(anova(reduced_model, full_model))
+
+df <- rbind(first, second, third) |>
+  rename(p_val = `Pr(Chi)`) |>
+  mutate(p_adj = p.adjust(p_val), method="fdr")
+
+df
 
 ```
 
