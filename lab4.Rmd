@@ -490,14 +490,13 @@ By looking at the model's summary in `initial_model` on the adjusted $p$-values,
 
 **ANSWER:**
 
-Statistically significant:\
-\
+*None of the levels of self-rated enjoyment of MDS were statistically significant under this model. This suggests that there was no relationship between self-rated enjoyment of MDS and salary expectation after MDS graduation.*
 
 Given your results in the `initial_model` summary, **comment in two o three sentences** on how adding the rest of the survey questions (as stratified confounders per se) will benefit your observational study in identifying causality.
 
 **ANSWER:**
 
-*Type your answer here, replacing this text.*
+*The addition of stratified confounders to the model will help separate MDS enjoyment from other factors known to influence salary expectations. This will help us separate participants into similar groups based on the confounders, which is similar to blocking and helps us identify the effects of the variable of interest.*
 
 ## Q2.4. Full Data Modelling
 
