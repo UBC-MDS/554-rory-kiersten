@@ -525,17 +525,17 @@ tidy_full_model |>
 
 By looking at the model's summary in `full_model` on the adjusted $p$-values, what can you conclude on the statistical relationship between self-rated enjoyment of MDS with the salary expectation after MDS graduation? Also, comment on the relationship between the salary expectation after MDS graduation and the confounders.
 
-**Comment in one o two paragraphs.**
+**Comment in one or two paragraphs.**
 
 **ANSWER:**
 
-*Type your answer here, replacing this text.*
+*In terms of the relationship between self-rated enjoyment of MDS and salary expectation after MDS, the only significant value was between self-rated enjoyment levels 2 and 3. Which can be interpreted as:*
 
 Is there a statistical difference between the data of both years? **Answer in one or two sentences.**
 
 **ANSWER:**
 
-*Type your answer here, replacing this text.*
+*No, there is no statistical difference between the years as the p-value was higher than the significance level.*
 
 ## Q2.5. Confounding Stratification
 
@@ -543,7 +543,7 @@ rubric={reasoning:4}
 
 **In three or four sentences**, explain the respondents' stratification in the `full_model` made by the confounders (with `year` included). State any assumptions made on the `full_model`.
 
-*Type your answer here, replacing this text.*
+*The respondents were stratified into categories based on their responses to the confounding variables: salary_pre_mds, work_exp, ds_skill_confidence, does_optional_qs, currently_job_searching, baseline_happiness, freq_attend_mds_career_events, and year. Each confounder was split into 2-4 groups depending on the type of data. The assumption is that the groups are balanced, with equal variance between groups.*
 
 ## Q2.6. Primary Model Selection
 
@@ -553,7 +553,7 @@ It is necessary to statistically check whether `full_model` provides a better da
 
 **ANSWER:**
 
-*Type your answer here, replacing this text.*
+The goodness of fit test gave a p-value \< 0.05, meaning we can reject the null hypothesis in favour of the alternative. Therefore, we can conclude that the full model fits the data better than the initial model.
 
 ```{r tags=c()}
 # YOUR CODE HERE
@@ -599,7 +599,7 @@ Based on these comparisons, which model would you finally choose? **Answer in on
 
 **ANSWER:**
 
-After the three goodness of fit tests, it was found that at a significance level of 0.05, the reduced model fits the data better than both the initial and full models. Therefore, I would choose the reduced model.
+*After the three goodness of fit tests, it was found that at a significance level of 0.05, the reduced model fits the data better than both the initial and full models. Therefore, I would choose the reduced model.*
 
 ```{r tags=c()}
 # YOUR CODE HERE
