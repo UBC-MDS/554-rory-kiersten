@@ -353,7 +353,7 @@ createPlot <- function(col) {
 
 **ANSWER (`mds_self_rated_enjoy` versus `salary_exp_post_grad`):**
 
-Most respondents self rated their enjoyment of MDS as either 3 or 4 and at a graphical level this does not appear to be associated with salary expectations post income or year. However, I note that in 2020, people who expected 100k-200k unanimously rated enjoyment as level 3.
+Most respondents self rated their enjoyment of MDS as either 3 or 4 and at a graphical level this does not appear to be associated with salary expectations post income or year.
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, fig.width=9, fig.height=5}
 # You plot goes here.
@@ -529,7 +529,7 @@ By looking at the model's summary in `full_model` on the adjusted $p$-values, wh
 
 **ANSWER:**
 
-*In terms of the relationship between self-rated enjoyment of MDS and salary expectation after MDS, the only significant value was between self-rated enjoyment levels 2 and 3. Which can be interpreted as:*
+*The transition from level 2 to 3 in self-rated enjoyment shows a significant negative relationship with salary expectation (p-adj = 0.0199), indicating that increasing enjoyment from level 2 to level 3 decreases the likelihood of expecting a higher salary bracket. For the other transitions in self-rated enjoyment of the MDS program, such as moving from level 1 to 2 or from level 3 to 4, the relationship with salary expectations after graduation was not statistically significant.*
 
 Is there a statistical difference between the data of both years? **Answer in one or two sentences.**
 
@@ -553,7 +553,7 @@ It is necessary to statistically check whether `full_model` provides a better da
 
 **ANSWER:**
 
-The goodness of fit test gave a p-value \< 0.05, meaning we can reject the null hypothesis in favour of the alternative. Therefore, we can conclude that the full model fits the data better than the initial model.
+*The goodness of fit test gave a p-value \< 0.05, meaning we can reject the null hypothesis in favour of the alternative. Therefore, we can conclude that the full model fits the data better than the initial model.*
 
 ```{r tags=c()}
 # YOUR CODE HERE
@@ -573,20 +573,23 @@ Comment on your statistically significant results **in two or three sentences**.
 
 **ANSWER:**
 
-*Type your answer here, replacing this text.*
+*The transition from satisfaction level 1 to 2 now leads to a statistically significant increase in salary expectation, which was not detected in the full model. Removing the stratified confounders that were present in the full model resulted in more statistically significant findings. The other comparison that become statistically significant was the difference between earning 60-80k and less than 60k.*
 
 ```{r tags=c()}
 # YOUR CODE HERE
 
 reduced_model <- MASS::polr(salary_exp_post_grad ~ mds_self_rated_enjoy + salary_pre_mds + work_exp, data=salary_df, Hess = TRUE)
 
-tidy_reduced_model <- tidy(full_model) 
+tidy_reduced_model <- tidy(reduced_model) 
 
 tidy_reduced_model <- tidy_reduced_model |>
   mutate(p_raw = 2*pnorm(abs(statistic), lower.tail = F)) |>
   mutate(p_adj = p.adjust((p_raw), method="fdr"))
 
 tidy_reduced_model
+
+tidy_reduced_model |>
+  filter(p_adj < 0.05)
 ```
 
 ## Q2.8. Secondary Model Selection
@@ -599,21 +602,29 @@ Based on these comparisons, which model would you finally choose? **Answer in on
 
 **ANSWER:**
 
-*After the three goodness of fit tests, it was found that at a significance level of 0.05, the reduced model fits the data better than both the initial and full models. Therefore, I would choose the reduced model.*
+*After the three goodness of fit tests, it was found that at a significance level of 0.05, the reduced and full models fit the data better than the initial model. However, there the full model does not provide a statistically significant improvement on the reduced model. Therefore, I would opt for the reduced model as it is simpler.*
 
 ```{r tags=c()}
-# YOUR CODE HERE
 
 first <- as.data.frame(anova(initial_model, full_model))
-second <- as.data.frame(anova(initial_model, reduced_model))
-third <- as.data.frame(anova(reduced_model, full_model))
+first$Comparison <- "Full vs Initial" 
 
-df <- rbind(first, second, third) |>
+second <- as.data.frame(anova(initial_model, reduced_model))
+second$Comparison <- "Reduced vs Initial"
+
+third <- as.data.frame(anova(reduced_model, full_model))
+third$Comparison <- "Full vs Reduced"
+
+df <- rbind(first, second, third)
+
+df <- df |>
   rename(p_val = `Pr(Chi)`) |>
-  mutate(p_adj = p.adjust(p_val), method="fdr")
+  mutate(
+    p_adj = p.adjust(p_val, method="fdr"), 
+    method="fdr"
+  )
 
 df
-
 ```
 
 ## Q2.9. Inferential Conclusions
@@ -626,7 +637,13 @@ Suppose you **attempt** to use the chosen model in **Q2.8** **to explain causali
 
 **ANSWER:**
 
-*Type your answer here, replacing this text.*
+In this analysis, the chosen reduced model was utilized to explore associations between the self-rated enjoyment of the MDS program and expected salary upon graduation, while accounting for key confounders like previous salary and work experience. This model was selected for its balance of simplicity, allowing us to focus on the most impactful predictors.
+
+Moving from level 1 to 2 satisfaction is associated statistically significant increase in salary expectations. This suggests that initial improvements in program satisfaction can positively impact students' salary expectations, potentially indicating that initial positive experiences in the program might boost confidence or perceived value from the education, influencing their career outlook positively.
+
+Interestingly, increasing satisfaction from level 2 to 3 correlates with a decrease in salary expectations. One possible explanation for this is that less skilled students enjoy the program more as it challenges them, but they have lower salary expectations because they have less confidence in their skills. However, this is merely a hypothesis for future investigation and would require more potentially cofounding variables such as confidence in abilities and skill level to be included.
+
+While this model provides insights into the relationships between the studied variables, the observational nature of the study introduces limitations to the causal interpretations we can confidently make. Despite controlling for previous salary and work experience, which influence salary expectations, it is likely that other unmeasured confounders exist.
 
 ## (Challenging) Q2.10. Study Critique
 
@@ -636,7 +653,11 @@ From the MDS student study above, write **one or two paragraphs** criticizing th
 
 **ANSWER:**
 
-*Type your answer here, replacing this text.*
+We could rely less on self-reported data but instead try to find more objective variables, such as exam performance.
+
+Objective measures like job placement rates after graduation or actual starting salaries
+
+Control for country, or average salary in country of employment
 
 \newpage
 
